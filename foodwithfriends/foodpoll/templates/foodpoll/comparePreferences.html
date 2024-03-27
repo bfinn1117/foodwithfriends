@@ -1,0 +1,39 @@
+{% extends "foodpoll/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<h1>Preference Comparison</h1>
+<br>
+<h3>What you agreed on:</h3>
+<br>
+<h5>Type:</h5>
+<!--create list item for matches-->
+{% for cuisineMatch in cuisineMatches %}
+<div>
+<li>
+    <a>{{ cuisineMatch }}</a>
+</li>
+</div>
+{% endfor %}
+<br>
+<h5>Location:</h5>
+<li>
+    <a>{{ locationMatch }}</a>
+</li>
+<br>
+<h5>Price:</h5>
+<li>
+    <a>{{ priceInvited }} and {{ priceCurrent}} </a>
+</li>
+</main>
+
+{% else %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'login' %}">Log In</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'register' %}">Register</a>
+</li>
+{% endif %}
+{% endblock %}

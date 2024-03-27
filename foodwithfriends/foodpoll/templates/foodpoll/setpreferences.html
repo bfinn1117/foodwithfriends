@@ -1,0 +1,71 @@
+{% extends "foodpoll/layout.html" %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<h2>Current Dinner Preferences:</h2>
+<div>
+    <p>Location: {{ preferences.location }}</p>
+</div>
+<div>
+    <p>1st Choice: {{ preferences.pref1 }}</p>
+</div>
+<div>
+    <p>2nd Choice: {{ preferences.pref2 }}</p>
+</div>
+<div>
+    <p>3rd Choice: {{ preferences.pref3 }}</p>
+</div>
+<div>
+    <p>Budget Range: {{ preferences.price }}</p>
+</div>
+{% endif %}
+<br>
+<button class="btn btn-success">Update My Preferences</button>
+<br>
+<form hidden=true action="{% url 'setPreferences' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="location">Dine in or takeout?</label>
+        <select name="location" id="location">
+            {% for loc in locations %}
+            <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="pref1">Preference 1:</label>
+        <select name="pref1" id="pref1">
+            {% for cuisine in cuisines %}
+            <option value="{{ cuisine }}">{{ cuisine }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="pref2">Preference 2:</label>
+        <select name="pref2" id="pref2">
+            {% for cuisine in cuisines %}
+            <option value="{{ cuisine }}">{{ cuisine }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="pref3">Preference 3:</label>
+        <select name="pref3" id="pref3">
+            {% for cuisine in cuisines %}
+            <option value="{{ cuisine }}">{{ cuisine }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="price">Price Range:</label>
+        <select name="price" id="price">
+            {% for price in prices %}
+            <option value="{{ price }}">{{ price }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button onclick="setPreferences()" type="submit" class="btn btn-success">Set Preferences</button>
+</form>
+</main>
+{% endblock %}

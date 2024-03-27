@@ -1,0 +1,23 @@
+{% extends "foodpoll/layout.html" %}
+
+{% block body %}
+<main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<h3>Set your preferences,</h3>
+<h3>Compare with others.</h3>
+{% if user.is_authenticated %}
+<br>
+<br>
+<h5>Who do you plan to eat with?:</h5>
+<form action="{% url 'searchResults' %}" method="GET">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="invitedUser">Username:</label>
+        <input name="invitedUser" id="invitedUser">
+    </div>
+    <button type="submit" class="btn btn-success">Search</button>
+</form>
+</main>
+{% else %}
+
+{% endif %}
+{% endblock %}
